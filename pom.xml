@@ -12,7 +12,7 @@
 	<groupId>com.srr.upvc</groupId>
 	<artifactId>pos</artifactId>
 	<version>0.0.1</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>pos</name>
 	<description>for Spring Boot</description>
 	<properties>
@@ -78,11 +78,11 @@
 			<artifactId>bootstrap</artifactId>
 			<version>3.3.7</version>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
-		</dependency>
+		</dependency>-->
 		<!-- spring session jars -->
 		<dependency>
 			<groupId>org.springframework.session</groupId>
