@@ -23,7 +23,8 @@
 						 
 				 <li class="dropdown"><a href="/searchorder">Find Order</a>
 					 </li> 
-					
+					 <li class="dropdown"><a href="/dashBoard">Dash Bord</a>
+					 </li>
 				<!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">Stock <span class="caret"></span></a>

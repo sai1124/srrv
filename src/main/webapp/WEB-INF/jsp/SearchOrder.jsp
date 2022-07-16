@@ -33,6 +33,19 @@
 				</div>
 			</div>
 
+			<div class="col-sm-3 col-md-3" >
+				<div class="form-group">
+					<label>Order Date last</label> <select id="last_date_range" class="form-control"
+						name="last_date_range">
+						<option value="ALL">ALL</option>
+						<option value=7>7</option>
+						<option value=15>15</option>
+						<option value=30>30</option>
+						<option value=60>60</option>
+						</select>
+				</div>
+			</div>
+
 			<div class="col-sm-3 col-md-3">
 				<div class="form-group">
 					<label>Customer Number</label> <input type="text"
@@ -190,7 +203,21 @@
 					return img;
 				}
 			}
-			]
+			],
+			"rowCallback": function (row, data, index) {
+				if (data.status == "NO_INVOICE_GENERATED" || data.status == "NEW") {
+					$('td', row).css('background-color', 'yellow');
+				}
+				else if (data.status == "NO_INVOICE_REQUIRED") {
+					$('td', row).css('background-color', 'Orange');
+				}
+				else if (data.status == "INVOICE_GENERATED") {
+					$('td', row).css('background-color', 'lightseagreen');
+				}
+				else if (data.status == "ORDER_NOT_REQUIRED") {
+					$('td', row).css('background-color', 'Red');
+				}
+			}
 		});
 
 		var table = $('#myTable').DataTable();
@@ -241,7 +268,12 @@
 				inputJson.status = $("#status").val();
 			}
 			
-			inputJson.orderEndDate = orderEndDate;
+			if($("#last_date_range").val()!='ALL') {
+				var today = new Date();
+				var priorDate = new Date(new Date().setDate(today.getDate() - parseInt($("#last_date_range").val())));
+				inputJson.orderEndDate = formatDateStr(today);
+				inputJson.orderStartDate = formatDateStr(priorDate);
+			}
 			table.clear();
 			table.draw();
 			$.ajax({
@@ -269,6 +301,16 @@
 			table = $('#myTable').DataTable();
 		}); 
 
+		var formatDateStr = function(today) {
+			var yyyy = today.getFullYear();
+				let mm = today.getMonth() + 1; // Months start at 0!
+				let dd = today.getDate();
+
+				if (dd < 10) dd = '0' + dd;
+				if (mm < 10) mm = '0' + mm;
+
+				return dd + '/' + mm + '/' + yyyy;
+		}
 		$('#myTable tbody').on('click','.edit-item-row',function() {
 			var table = $('#myTable').DataTable();
 			var data = table.row(this.parentElement.parentElement).data();

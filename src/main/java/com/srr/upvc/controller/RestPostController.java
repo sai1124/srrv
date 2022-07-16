@@ -127,6 +127,8 @@ public class RestPostController {
 			}
 			order.setInvoiceId(record.getInvoiceId());
 			order.setInvoiceNum(record.getInvoiceNum());
+			order.setInvoiceAmount(record.getTotalAmount());
+			order.setStatus("INVOICE_GENERATED");
 			customerOrderDetailService.saveByEntity(order);
 			invoiceDetailService.updateGST(record.getInvoiceId());
 			res.setStatus(ResponseCode.SUCCESS);
