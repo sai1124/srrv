@@ -1,6 +1,5 @@
 package com.srr.upvc.controller;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -69,7 +68,7 @@ public class RestPostController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	  	
-	private static DecimalFormat df2 = new DecimalFormat("#.##");
+	//private static DecimalFormat df2 = new DecimalFormat("#.##");
 	/* @PreAuthorize("hasAnyRole('ADMIN')") */
 	@PostMapping("/admin/add")
 	public String addUserByAdmin(@RequestBody User user) {
@@ -244,14 +243,14 @@ public class RestPostController {
 	}
 	
 	public void updateInvTotal(List<InvoiceItem> records,long invoiceId) {
-		double total= 0;
-		if(records != null) {
+		// double total= 0;
+		// if(records != null) {
 
-			for (InvoiceItem invoiceItem : records) {
-				total += invoiceItem.getTotal();
-			}
+		// 	for (InvoiceItem invoiceItem : records) {
+		// 		total += invoiceItem.getTotal();
+		// 	}
 			
-		}
+		// }
 	}
 	@PostMapping("/delete/item/{itemId}")
 	public AppEntity<InvoiceItem> deleteItem(@PathVariable Long itemId) {

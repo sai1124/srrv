@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.srr.upvc.entity.CustomerOrder;
 import com.srr.upvc.entity.InvoicePayment;
 import com.srr.upvc.repository.CustomerOrderRepo;
-import com.srr.upvc.repository.InvoiceDetailRepo;
 import com.srr.upvc.repository.PaymentDetailRepo;
 import com.srr.upvc.service.PaymentDetailService;
 

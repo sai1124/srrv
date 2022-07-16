@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.srr.upvc.dto.CustomerDto;
 import com.srr.upvc.entity.Customer;
@@ -40,15 +39,15 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public String UpdateCustomer(CustomerDto customer) {
 		String status;
-		Optional<Customer> records =  null;//customerRepo.findById(customer.getId());
-		if(records.isPresent()) {
-			status = "Updated Successfuly";
-		}else {
-			status = "Customer not found created a new entry";
-		}
+		// Optional<Customer> records =  null;//customerRepo.findById(customer.getId());
+		// if(records != null &&records.isPresent()) {
+		// 	status = "Updated Successfuly";
+		// }else {
+		// 	status = "Customer not found created a new entry";
+		// }
 		
 		//customerRepo.save(customer.prepareEntity());
-		
+		status = "Customer not found created a new entry";
 		return status;
 	}
 	

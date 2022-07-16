@@ -45,7 +45,17 @@ public class CustomerOrderDto {
 	private Long invoiceId;
 	
 	private Double invoiceAmount;
+
+	private String invoiceNum;
 	
+	public String getInvoiceNum() {
+		return invoiceNum;
+	}
+
+	public void setInvoiceNum(String invoiceNum) {
+		this.invoiceNum = invoiceNum;
+	}
+
 	private Double amountReceived;
 
 	public Long getOrderId() {

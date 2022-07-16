@@ -52,7 +52,7 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 		}else {
 			info = new InvoiceInfo();
 		}
-		 //need to work here 
+		rec = convertEntityToDTO(info);
 		return rec;
 	}
 

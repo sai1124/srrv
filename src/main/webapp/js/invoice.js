@@ -164,6 +164,7 @@
 							if(orderDetail.invoiceNum ==  null){
 								$("#transMode").val("AUTO");
 								$("#transNumber").val("AP39TM0359");
+								$("#generateInvoice").hide();
 							} else {
 								$("#submitHeader").val("Save");
 							}

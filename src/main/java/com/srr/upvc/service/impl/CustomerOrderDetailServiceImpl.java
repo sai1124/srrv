@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.srr.upvc.dto.CustomerOrderDto;
 import com.srr.upvc.entity.CustomerOrder;
-import com.srr.upvc.entity.InvoiceInfo;
+//import com.srr.upvc.entity.InvoiceInfo;
 import com.srr.upvc.repository.CustomerOrderRepo;
 import com.srr.upvc.repository.InvoiceDetailRepo;
 import com.srr.upvc.service.CustomerOrderDetailService;
@@ -61,6 +61,9 @@ public class CustomerOrderDetailServiceImpl implements CustomerOrderDetailServic
 
 		record.setStatus(req.getStatus());
 		record.setModifiedBy(req.getModifiedBy());
+		record.setInvoiceId(req.getInvoiceId());
+		record.setInvoiceAmount(req.getInvoiceAmount()); 
+		record.setInvoiceNum(req.getInvoiceNum());
 		if (req.getModifiedOn() != null && !req.getModifiedOn().isEmpty())
 			record.setModifiedOn(AppUtils.convertDate(req.getModifiedOn()));
 		record.setPaymentType(req.getPaymentType());
@@ -157,26 +160,26 @@ public class CustomerOrderDetailServiceImpl implements CustomerOrderDetailServic
 	}
 
 	 
-	private void generateInitInvoice(CustomerOrder order) {
-		 InvoiceInfo inv = new InvoiceInfo();
-		 inv.setTotalAmount(order.getOrderAmount());
-		 inv.setAdvanceAmount(order.getAdvanceAmount());
-		 inv.setBalanceAmount(order.getBalanceAmount());
-		 inv.setCgst_amount(0.0);
-		 inv.setSgst_amount(0.0);
-		 inv.setGst_amount(0.0);
-		 inv.setInvoiceDate(order.getOrderDate());
-		 inv.setDueDate(order.getDueDate());
-		 inv.setCreatedOn(new Date());
-		 inv.setStatus("NEW");
-		 inv.setOrderId(order.getOrderId());
-		 inv.setCreatedBy(order.getCreatedBy());
-		 inv.setCreatedOn(new Date());
-		 inv = invoiceDetailRepo.save(inv);	
-		 inv.setInvoiceNum("INV-"+order.getOrderNum().split("-")[0]+"-"+String.valueOf(inv.getInvoiceId()));
+	// private void generateInitInvoice(CustomerOrder order) {
+	// 	 InvoiceInfo inv = new InvoiceInfo();
+	// 	 inv.setTotalAmount(order.getOrderAmount());
+	// 	 inv.setAdvanceAmount(order.getAdvanceAmount());
+	// 	 inv.setBalanceAmount(order.getBalanceAmount());
+	// 	 inv.setCgst_amount(0.0);
+	// 	 inv.setSgst_amount(0.0);
+	// 	 inv.setGst_amount(0.0);
+	// 	 inv.setInvoiceDate(order.getOrderDate());
+	// 	 inv.setDueDate(order.getDueDate());
+	// 	 inv.setCreatedOn(new Date());
+	// 	 inv.setStatus("NEW");
+	// 	 inv.setOrderId(order.getOrderId());
+	// 	 inv.setCreatedBy(order.getCreatedBy());
+	// 	 inv.setCreatedOn(new Date());
+	// 	 inv = invoiceDetailRepo.save(inv);	
+	// 	 inv.setInvoiceNum("INV-"+order.getOrderNum().split("-")[0]+"-"+String.valueOf(inv.getInvoiceId()));
 		 
-		 invoiceDetailRepo.save(inv);	
-	}
+	// 	 invoiceDetailRepo.save(inv);	
+	// }
 
 	public CustomerOrder findCustomerOrderbyId(Long orderId) {
 		Optional<CustomerOrder> customerOrder = customerOrderRepo.findById(orderId);

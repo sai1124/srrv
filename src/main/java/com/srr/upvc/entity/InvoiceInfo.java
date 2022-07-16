@@ -2,16 +2,12 @@ package com.srr.upvc.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,10 +25,10 @@ public class InvoiceInfo implements Serializable {
 
 	@Column(name = "invoice_number")
 	private String invoiceNum;
- 
-	@Column(nullable = false,name = "due_date")
+
+	@Column(nullable = false, name = "due_date")
 	private Date dueDate;
-	
+
 	@Column(nullable = false, name = "invoice_date")
 	private Date invoiceDate;
 
@@ -62,26 +58,26 @@ public class InvoiceInfo implements Serializable {
 
 	@Column(name = "C_GST_AMT", columnDefinition = "double default 0.0")
 	private Double cgst_amount;
-	
+
 	@Column(name = "S_GST_AMT", columnDefinition = "double default 0.0")
 	private Double sgst_amount;
-	
+
 	@Column(name = "GST_AMT", columnDefinition = "double default 0.0")
 	private Double gst_amount;
-	
+
 	@Column(name = "gst_rounding", columnDefinition = "double default 0.0")
 	private Double gstRounding;
-	
+
 	@Column(name = "amount_excluding_tax", columnDefinition = "double default 0.0")
 	private Double amountExcludingTax;
-	
+
 	private String transMode;
-	
+
 	private String transNumber;
-	
+
 	private boolean manual;
-	
-	@Column(name="order_id")
+
+	@Column(name = "order_id")
 	private Long orderId;
 
 	public Long getInvoiceId() {
@@ -251,5 +247,5 @@ public class InvoiceInfo implements Serializable {
 	public void setManual(boolean manual) {
 		this.manual = manual;
 	}
-	
+
 }
