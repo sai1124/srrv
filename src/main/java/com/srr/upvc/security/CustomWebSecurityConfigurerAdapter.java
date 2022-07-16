@@ -30,13 +30,13 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 	}
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		String[] permitted = new String[] { "/resources/**","/css/**", "/js/**", "**/image/**","/images/**","/customer/**/**","t/**/**","/bootstrap/**","/webapp/**/**","/fonts/**" };
+		String[] permitted = new String[] { "/resources/**","/css/**", "/js/**", "**/image/**","/images/**","/customer/**/**","/post/**/**","/bootstrap/**","/webapp/**/**","/fonts/**" };
 		web.ignoring().antMatchers(permitted);
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		String[] permitted = new String[] { "/css/**", "/js/**", "**/image/**","/images/**","/customer/**/**","t/**/**","/bootstrap/**","/webapp/**/**","/fonts/**" };
+		String[] permitted = new String[] { "/css/**", "/js/**", "**/image/**","/images/**","/customer/**/**","/post/**/**","/bootstrap/**","/webapp/**/**","/fonts/**" };
 		  http
           .authorizeRequests()
           .antMatchers(permitted)
