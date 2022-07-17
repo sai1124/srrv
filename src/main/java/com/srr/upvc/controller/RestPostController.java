@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.Entity;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -321,11 +323,21 @@ public class RestPostController {
 	public AppEntity<CustomerOrder> findOrder(@RequestBody CustomerOrderDto req, HttpServletRequest request) {
 		AppEntity<CustomerOrder> res = new AppEntity<CustomerOrder>();
 		res.setStatus(ResponseCode.FAILURE);
-		res.setStatus(ResponseCode.SUCCESS);
+		
 		List<CustomerOrder> invoiceInfos =customerOrderDetailService.findCustomerOrders(req);
 		if(invoiceInfos != null && invoiceInfos.size() > 0) { 
 			res.setRecords(invoiceInfos);
 		}
+		res.setStatus(ResponseCode.SUCCESS);
+		return res;
+	}
+
+	@PostMapping("/find/turnOver")
+	public AppEntity<Map<String,Object>> findTurnOver(@RequestBody CustomerOrderDto req, HttpServletRequest request) {
+		AppEntity<Map<String, Object>> res = new AppEntity<Map<String, Object>>();
+		res.setStatus(ResponseCode.FAILURE);
+		res.setRecords(customerOrderDetailService.fetchTurnOver(req.getOrderStartDate(), req.getOrderEndDate()));
+		res.setStatus(ResponseCode.SUCCESS);
 		return res;
 	}
 }

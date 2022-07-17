@@ -3,8 +3,10 @@ package com.srr.upvc.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.srr.upvc.dto.CustomerOrderDto;
+import com.srr.upvc.dto.TurnOverDto;
 import com.srr.upvc.entity.CustomerOrder;
 //import com.srr.upvc.entity.InvoiceInfo;
 import com.srr.upvc.repository.CustomerOrderRepo;
@@ -189,6 +192,11 @@ public class CustomerOrderDetailServiceImpl implements CustomerOrderDetailServic
 		else {
 			return null;
 		}
+	}
+
+	@Override
+	public List<Map<String, Object>> fetchTurnOver(String orderStartDate, String orderEndDate) {
+		return customerOrderRepo.findSumByDateRange(orderStartDate, orderEndDate);
 	}
 
 }

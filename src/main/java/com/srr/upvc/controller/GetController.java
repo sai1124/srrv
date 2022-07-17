@@ -97,6 +97,12 @@ public class GetController {
 		return "createProfile";
 	}
 	
+
+	@RequestMapping(path = {"/turnOver"})
+	public String findTurnOver(ModelMap model) {
+		model.addAttribute("userName", getUserName());		 
+		return "TurnOver";
+	}
 	  
 	@RequestMapping(path = {"/createParent"})
 	public String createParent(ModelMap model,@Param("serviceType") String serviceType ) throws JsonProcessingException {
