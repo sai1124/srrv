@@ -166,7 +166,7 @@
 								$("#transNumber").val("AP39TM0359");
 								$("#generateInvoice").hide();
 							} else {
-								$("#submitHeader").val("Save");
+								$("#submitHeader").html("Save");
 							}
 							if(orderDetail.manual) {
 								disabledFields(false);
@@ -436,7 +436,14 @@
 								data : JSON.stringify(orderDetail),
 								dataType : "json",
 								"contentType" : "application/json",
+								beforeSend: function() {
+									//$("#submitBtn").removeClass("btn-primary");
+									$("#submitHeader").attr("disabled",true);
+									$("#submitHeader").html("In Progress  <i class='fa fa-spinner fa-spin'></i>");
+								}, 
 								success : function(data) {
+									$("#submitHeader").attr("disabled",false);
+									$("#submitHeader").html("Save");
 									if (data != null) {
 										if (data.status == "FAILURE") {
 											alert("failure -->" + data.message);

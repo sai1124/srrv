@@ -191,8 +191,8 @@ thead>td {
 				</div>
 				<div class="col-sm-6 col-md-6" style="text-align: center;">
 					<div class="form-group1">
-						<label>&nbsp;</label> <br> <input type="button" id="submitHeader"
-							value="Generate Invoice" class="btn btn-primary" /> &nbsp; <button id="addEntry"
+						<label>&nbsp;</label> <br> <button  id="submitHeader"
+							 class="btn btn-primary" >Generate Invoice</button> &nbsp; <button id="addEntry"
 							style="display:none;" class="btn btn-primary" />Add Inv Entry</button> &nbsp;  
 
 					</div>
