@@ -1,12 +1,5 @@
 package com.srr.upvc.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class TurnOverDto {
 
 	private Double orderAmount;

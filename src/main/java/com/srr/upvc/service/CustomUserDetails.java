@@ -8,11 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.srr.upvc.entity.User;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class CustomUserDetails implements UserDetails {
 
 	/**
