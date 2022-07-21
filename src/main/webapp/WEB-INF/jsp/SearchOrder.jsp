@@ -6,11 +6,16 @@
 <meta charset="ISO-8859-1">
 <title>Search Customer</title>
  <jsp:directive.include file="ScriptTags.jsp" />
+ <style>
+	body{
+		font-size: 12px !important;
+	}
+	
+ </style>
 </head>
 <body>
 <jsp:directive.include file="Header.jsp" />
-	 <div style="text-align: center; font-size: 39px;">Search Order</div>
-	<div class="container">
+	<div class="container" style="width: 100% !important;">
 		<div class="row">
 			<div class="col-sm-3 col-md-3" style="display: none;">
 				<div class="form-group">
@@ -20,7 +25,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-3 col-md-3">
+			<div class="col-sm-3 col-md-3" style="width:18% !important;">
 				<div class="form-group">
 					<label>Order Date</label> <input type="text" id="order_date_range"
 						name="order_date_range" class="form-control" placeholder="DD/MM/YYYY-DD/MM/YYYY">
@@ -33,9 +38,9 @@
 				</div>
 			</div>
 
-			<div class="col-sm-3 col-md-3" >
+			<div class="col-sm-1 col-md-1" >
 				<div class="form-group">
-					<label>Order Date last</label> <select id="last_date_range" class="form-control"
+					<label>Prev Date</label> <select id="last_date_range" class="form-control"
 						name="last_date_range">
 						<option value="ALL">ALL</option>
 						<option value=7>7</option>
@@ -46,7 +51,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-3 col-md-3">
+			<div class="col-sm-2 col-md-2">
 				<div class="form-group">
 					<label>Customer Number</label> <input type="text"
 						id="contact_number" name="contact_number" class="form-control"
@@ -54,7 +59,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-3 col-md-3">
+			<div class="col-sm-2 col-md-2">
 				<div class="form-group">
 					<label>Customer Name</label> <input type="text" id="customer_name"
 						name="customer_name" class="form-control"
@@ -62,7 +67,7 @@
 				</div>
 			</div>
 			
-			<div class="col-sm-3 col-md-3">
+			<div class="col-sm-2 col-md-2">
 					<div class="form-group">
 						<label>Status</label> <br /> <select id="status"
 							class="form-control">
@@ -74,11 +79,15 @@
 						</select>
 					</div>
 				</div>
-		</div>
-		<div class="form-group" style="text-align: center">
-			<button id="searchBtn" class="btn btn-primary">Search</button>
-			<button id="clearBtn" class="btn btn-secondary">Clear</button>
-		</div>
+				<div class="col-sm-2 col-md-2">
+
+					<div class="form-group" style="text-align: center">
+						<label>&nbsp;</label> <br />
+						<button id="searchBtn" class="btn btn-primary">Search</button>
+						<button id="clearBtn" class="btn btn-secondary">Clear</button>
+					</div>
+				</div>
+		</div> 
 	</div>
 
 	<table id="myTable" class="display nowrap" style="width: 100%">
@@ -87,6 +96,11 @@
 
 </body>
 <script type="text/javascript">
+	var _cust_number = "${customer_number}";
+	var _lt_range = "${last_date_range}";
+	var _cust_name = "${customer_name}";
+	var _order_date = "${order_date}";
+	var _status = "${status}"; 
 	$(document).ready(function() {
 		$("#searchorderId").addClass("active");
 		 
@@ -119,10 +133,10 @@
 		 
 		$("#clearBtn").on('click',function(){
 			 $("#customer_name").val('');
-			 $("#contactNumber").val('');
+			 $("#contact_number").val('');
 			 $("#order_date_range").val('');
 			 $("#due_date_range").val('');
-			 $("#customer_order_id").val('');
+			 $("#last_date_range").val("ALL");
 			 $("#status").val(null);
 
 		});
@@ -130,6 +144,7 @@
 		var dataSet = [];
 		$('#myTable').DataTable({
 			dom : "Bfrtip",
+			searching: false,
 			data : [],
 			buttons: [
 	             'excel' 
@@ -138,8 +153,7 @@
 
 			{
 				title : "Customer Order ID",
-				data : "orderId",
-				visible:false
+				data : "orderId" 
 			},{
 				title : " Status",
 				data : "status"
@@ -182,9 +196,17 @@
 				title : "Inv Num",
 				data : "invoiceNum",
 				className : "text-left" 
+			}, {
+				title : "Inv Date",
+				data : "invoiceDate",
+				className : "text-center",
+				
+				render : function(data, type, row) {
+					return data!='' && data!= null ? defaultDateFormat(data): ''; 
+				}
 			},{
 				title : "Inv Amt",
-				data : "invoiceAmount",
+				data : "totalAmount",
 				className : "text-right",
 				render : function(data, type, row) {
 					return formatNumber(data);
@@ -250,10 +272,13 @@
 			
 			//inputJson.orderNum = $("#order_number").val()  != '' ? ;
 			if($("#customer_name").val() != '') {
-				inputJson.customerName = "%"+$("#customer_name").val()+"%";
+				inputJson.customerName = $("#customer_name").val();
 			}
 			
-			inputJson.contactNumber = $("#contactNumber").val() != '' ? $("#contactNumber").val() : null;
+			if($("#contact_number").val() != '') {
+				inputJson.contactNumber =  $("#contact_number").val();
+			}
+			
 			//inputJson.orderDate = $("#order_date").val();
 			//inputJson.orderId = $("#customer_order_id").val();
 			if($("#order_date_range").val() !='') {
@@ -263,6 +288,7 @@
 				//orderEndDate = orderEndDate.split("/")[1]+"/"+orderEndDate.split("/")[0]+orderEndDate.split("/")[2];
 				inputJson.orderStartDate = orderStartDate;
 				inputJson.orderEndDate = orderEndDate;
+				inputJson.orderDate = $("#order_date_range").val();
 			}
 			if($("#status").val() != '' || $("#status").val() != null) {
 				inputJson.status = $("#status").val();
@@ -273,7 +299,10 @@
 				var priorDate = new Date(new Date().setDate(today.getDate() - parseInt($("#last_date_range").val())));
 				inputJson.orderEndDate = formatDateStr(today);
 				inputJson.orderStartDate = formatDateStr(priorDate);
+				inputJson.lastDateRange = $("#last_date_range").val();
+				inputJson.orderDate = inputJson.orderStartDate+" - "+inputJson.orderEndDate;
 			}
+			inputJson.lastDateRange = $("#last_date_range").val();
 			table.clear();
 			table.draw();
 			$.ajax({
@@ -336,7 +365,24 @@
 				alert("Invoice not created");
 			}
 });
-		
+		if(_cust_number !='' || _lt_range != '' || _cust_name !='' || _order_date != ''|| _status != '') {
+			if(_order_date != '') {
+				$("#order_date_range").val(_order_date);
+			}
+			if(_lt_range != '') {
+				$("#last_date_range").val(_lt_range);
+			}
+			if(_cust_number != '') {
+				$("#contact_number").val(_cust_number);
+			}
+			if(_cust_name != '') {
+				$("#customer_name").val(_cust_name);
+			}
+			if(_status != '') {
+				$("#status").val(_status);
+			}
+			$("#searchBtn").click();
+		}
 	});
 </script>
 </html>

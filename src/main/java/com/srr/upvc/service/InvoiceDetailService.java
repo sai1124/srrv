@@ -1,6 +1,7 @@
 package com.srr.upvc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.srr.upvc.dto.InvoiceInfoDto;
 import com.srr.upvc.entity.InvoiceInfo;
@@ -20,4 +21,5 @@ public interface InvoiceDetailService {
 	public InvoiceInfoDto convertEntityToDTO(InvoiceInfo req);
 
 	public InvoiceInfo convertDtoToEntity(InvoiceInfoDto req);
+	public List<Map<String,Object>> fetchInvoiceListByDateRange(String invStartDate,String invEndDate);
 }

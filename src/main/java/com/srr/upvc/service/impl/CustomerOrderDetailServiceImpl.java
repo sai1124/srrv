@@ -2,14 +2,15 @@ package com.srr.upvc.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -17,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.srr.upvc.dto.CustomerOrderDto;
-import com.srr.upvc.dto.TurnOverDto;
 import com.srr.upvc.entity.CustomerOrder;
+import com.srr.upvc.entity.InvoiceInfo;
 //import com.srr.upvc.entity.InvoiceInfo;
 import com.srr.upvc.repository.CustomerOrderRepo;
 import com.srr.upvc.repository.InvoiceDetailRepo;
@@ -67,6 +68,7 @@ public class CustomerOrderDetailServiceImpl implements CustomerOrderDetailServic
 		record.setInvoiceId(req.getInvoiceId());
 		record.setInvoiceAmount(req.getInvoiceAmount()); 
 		record.setInvoiceNum(req.getInvoiceNum());
+		record.setGstNumber(req.getGstNumber());
 		if (req.getModifiedOn() != null && !req.getModifiedOn().isEmpty())
 			record.setModifiedOn(AppUtils.convertDate(req.getModifiedOn()));
 		record.setPaymentType(req.getPaymentType());
@@ -94,6 +96,7 @@ public class CustomerOrderDetailServiceImpl implements CustomerOrderDetailServic
 		record.setInvoiceAmount(req.getInvoiceAmount());
 		record.setInvoiceId(req.getInvoiceId());
 		record.setAmountReceived(req.getAmountReceived());
+		record.setGstNumber(req.getGstNumber());
 		if ((req.getModifiedOn() != null))
 			record.setModifiedOn(AppUtils.covertDateToString(req.getModifiedOn()));
 
@@ -107,44 +110,35 @@ public class CustomerOrderDetailServiceImpl implements CustomerOrderDetailServic
 		return customerOrderRepo.save(req);
 	}
 
-	public List<CustomerOrder> findCustomerOrders(CustomerOrderDto req) {
+	public List<CustomerOrderDto> findCustomerOrders(CustomerOrderDto req) {
 
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<CustomerOrder> cq = cb.createQuery(CustomerOrder.class);
-		Root<CustomerOrder> root = cq.from(CustomerOrder.class);
-		List<Predicate> predicates = new ArrayList<>();
+		 
+		String inputQuery = "SELECT new com.srr.upvc.dto.CustomerOrderDto(co.orderId, co.customerName, co.contactNumber, DATE_FORMAT(co.orderDate,'%Y-%m-%d'), DATE_FORMAT(co.dueDate,'%Y-%m-%d'), co.orderAmount, co.balanceAmount, inv.invoiceId, DATE_FORMAT( inv.invoiceDate,'%Y-%m-%d'), inv.invoiceNum, inv.totalAmount, co.status) ";
+		inputQuery = inputQuery + "from CustomerOrder co LEFT JOIN InvoiceInfo inv ON co.orderId =inv.orderId where 1=1 ";
+		 
 		 
 		if (req.getContactNumber() != null && !req.getContactNumber().isEmpty()) {
-			predicates.add(cb.like(root.get("contactNumber"), req.getContactNumber()));
+		 	inputQuery=inputQuery+" and co.contactNumber like '%"+req.getContactNumber()+"%' ";
 		}
 		if (req.getCustomerName() != null && !req.getCustomerName().isEmpty()) {
-			predicates.add(cb.like(root.get("customerName"), req.getCustomerName()));
+			inputQuery=inputQuery+" and co.customerName like '%"+req.getCustomerName()+"%' ";
 		}
 
 		if (req.getOrderNum() != null) {
-			predicates.add(cb.like(root.get("orderNum"), "%"+req.getOrderNum()+"%"));
+			inputQuery=inputQuery+" and co.orderNum like '%"+req.getOrderNum()+"%' ";
 		}
 		
 		
 		if (req.getStatus() != null && !req.getStatus().isEmpty()) {
-			predicates.add(cb.equal(root.get("status"), req.getStatus()));
+			inputQuery=inputQuery+" and co.status = '"+req.getStatus()+"' ";
 		}
 		if (req.getOrderStartDate() != null && req.getOrderEndDate() != null) {
+					 inputQuery=inputQuery+" and co.orderDate between STR_TO_DATE('"+req.getOrderStartDate()+"', '%d/%m/%Y') and  STR_TO_DATE('"+req.getOrderEndDate()+"', '%d/%m/%Y') ";
 
-			predicates.add(cb.between(root.get("orderDate"), AppUtils.convertDate(req.getOrderStartDate())
-					, AppUtils.convertDate(req.getOrderEndDate())));
-		}
-		/*
-		 * if (req.getDueStartDate() != null && req.getDueEndDate() != null) {
-		 * 
-		 * predicates.add(cb.between(root.get("CustomerOrderDate"),
-		 * AppUtils.convertDate(req.getDueStartDate()) ,
-		 * AppUtils.convertDate(req.getDueEndDate()))); }
-		 * 
-		 */		 
-		cq.where(predicates.toArray(new Predicate[0]));
-
-		return em.createQuery(cq).getResultList();
+		} 	  
+		inputQuery = inputQuery + " order by 1 asc";
+		
+		return  em.createQuery(inputQuery,CustomerOrderDto.class).getResultList(); 
 	}
 
 	public CustomerOrder createNewCustomerOrder(CustomerOrderDto req,boolean isModify) {

@@ -3,11 +3,11 @@ package com.srr.upvc.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.persistence.Entity;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -124,7 +124,7 @@ public class RestPostController {
 			  
 			record = invoiceDetailService.SaveInvoiceDetails(record);
 			if(record.getInvoiceNum()==null) {
-				record.setInvoiceNum(record.getInvoiceId()+"/"+invNum);
+				record.setInvoiceNum(record.getSeqId()+"/"+invNum);
 				record = invoiceDetailService.SaveInvoiceDetails(record);
 			}
 			order.setInvoiceId(record.getInvoiceId());
@@ -320,14 +320,20 @@ public class RestPostController {
 	}
 
 	@PostMapping("/find/Order")
-	public AppEntity<CustomerOrder> findOrder(@RequestBody CustomerOrderDto req, HttpServletRequest request) {
-		AppEntity<CustomerOrder> res = new AppEntity<CustomerOrder>();
+	public AppEntity<CustomerOrderDto> findOrder(@RequestBody CustomerOrderDto req, HttpServletRequest request) {
+		AppEntity<CustomerOrderDto> res = new AppEntity<CustomerOrderDto>();
 		res.setStatus(ResponseCode.FAILURE);
 		
-		List<CustomerOrder> invoiceInfos =customerOrderDetailService.findCustomerOrders(req);
+		List<CustomerOrderDto> invoiceInfos =customerOrderDetailService.findCustomerOrders(req);
 		if(invoiceInfos != null && invoiceInfos.size() > 0) { 
 			res.setRecords(invoiceInfos);
 		}
+		HttpSession session = request.getSession(false);
+		session.setAttribute("customer_number",  req.getContactNumber());
+		session.setAttribute("customer_name", req.getCustomerName());
+		session.setAttribute("last_date_range", req.getLastDateRange());
+		session.setAttribute("orderDate", req.getOrderDate());
+		session.setAttribute("status", req.getStatus());
 		res.setStatus(ResponseCode.SUCCESS);
 		return res;
 	}
@@ -337,6 +343,16 @@ public class RestPostController {
 		AppEntity<Map<String, Object>> res = new AppEntity<Map<String, Object>>();
 		res.setStatus(ResponseCode.FAILURE);
 		res.setRecords(customerOrderDetailService.fetchTurnOver(req.getOrderStartDate(), req.getOrderEndDate()));
+		res.setStatus(ResponseCode.SUCCESS);
+		return res;
+	}
+
+
+	@PostMapping("/find/invoiceList")
+	public AppEntity<Map<String,Object>> findInvoiceList(@RequestBody CustomerOrderDto req, HttpServletRequest request) {
+		AppEntity<Map<String, Object>> res = new AppEntity<Map<String, Object>>();
+		res.setStatus(ResponseCode.FAILURE);
+		res.setRecords(invoiceDetailService.fetchInvoiceListByDateRange(req.getOrderStartDate(), req.getOrderEndDate()));
 		res.setStatus(ResponseCode.SUCCESS);
 		return res;
 	}

@@ -222,6 +222,16 @@ thead>td {
 				<div class="row">
 					<div class="col-sm-6 col-md-6">
 						<div class="form-group1">
+							<select id="set_entry_desc" class="form-control">
+								<option value="SUPPLY OF UPVC WINDOWS">SUPPLY OF UPVC WINDOWS</option>
+								<option value="SUPPLY OF WPC FRAMES AND WINDOWS">SUPPLY OF WPC FRAMES AND WINDOWS</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group1">
 							<label>Entry Desc</label> <br /> <textarea 
 								id="itemDesc" name="itemDesc" class="form-control" style="width: 270px;height: 150px"></textarea> <input
 								type="hidden" id="itemId"></input>

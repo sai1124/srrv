@@ -80,6 +80,19 @@ public class InvoiceInfo implements Serializable {
 	@Column(name = "order_id")
 	private Long orderId;
 
+	@Column(name = "seq_Id")
+	@GeneratedValue(generator = "inv_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "inv_seq", sequenceName = "inv_seq", allocationSize = 1)
+	private Long seqId;
+
+	public Long getSeqId() {
+		return seqId;
+	}
+
+	public void setSeqId(Long seqId) {
+		this.seqId = seqId;
+	}
+
 	public Long getInvoiceId() {
 		return invoiceId;
 	}

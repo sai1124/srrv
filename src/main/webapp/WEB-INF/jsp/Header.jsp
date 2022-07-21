@@ -22,9 +22,12 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
 							aria-haspopup="true" aria-expanded="false">Dash Board <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li id="addToStoreId"><a href="/turnOver">Turn Over</a></li>
+							<li id="turnOverId"><a href="/turnOver">Turn Over</a></li>
+							<li role="separator" class="divider"></li>
+							<li id="invoiceListId"><a href="/invoiceList">Invoice List</a></li>
 							<li role="separator" class="divider"></li>
 						</ul>
+						 
 					</li>
 					<li><a href="/logout" class="purchase scrool">Log Out</a></li>
 				</ul>

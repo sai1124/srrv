@@ -15,6 +15,13 @@
 <!-- <script src="/js/jquery/dataTables.editor.min.js"></script>
 <script src="/js/jquery/dataTables.buttons.min.js"></script>
 <script src="/js/jquery/dataTables.select.min.js"></script> -->
+
+<script src="/js/jquery/dataTables.buttons.min.js"></script>
+<script src="/js/jquery/jszip.min.js"></script>
+<script src="/js/jquery/pdfmake.min.js"></script>
+<script src="/js/jquery/vfs_fonts.js"></script>
+<script src="/js/jquery/buttons.html5.min.js"></script>
+
 <style>
 .header {
 	text-align: center;

@@ -12,7 +12,9 @@
 	$(document)
 			.ready(
 					function() {
-
+						$("#set_entry_desc").change(function(){
+							$("#itemDesc").val($("#set_entry_desc").val());
+						});
 						$("#invoiceDate").datepicker({
 							dateFormat : 'dd/mm/yy',//check change
 							changeMonth : true,
@@ -317,7 +319,9 @@
 						};
 						var clearEntryPopUp = function(data) {
 							$("#itemId").val('');
-							$("#itemDesc").val('');
+							$("#itemDesc").val('SUPPLY OF UPVC WINDOWS');
+							$("#set_entry_desc").val('SUPPLY OF UPVC WINDOWS');
+							$("#hsn").val("39252000");
 							$("#quantity").val('');
 							$("#price").val('');
 							$("#total").val('');

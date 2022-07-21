@@ -82,6 +82,17 @@ public class CustomerOrder implements Serializable {
 	
 	private String invoiceNum;
 		
+	@Column(name = "gst_number")
+	private String gstNumber;
+
+	public String getGstNumber() {
+		return gstNumber;
+	}
+
+	public void setGstNumber(String gstNumber) {
+		this.gstNumber = gstNumber;
+	}
+
 	public Long getOrderId() {
 		return orderId;
 	}

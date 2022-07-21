@@ -2,6 +2,7 @@ package com.srr.upvc.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -21,14 +22,12 @@ import com.srr.upvc.repository.CompanyProfileRepo;
 @RequestMapping(path = "")
 public class GetController {
 
-	 
- 
 	@Autowired
 	public CompanyProfileRepo companyProfileRepo;
-	
+
 	@Autowired
 	public ObjectMapper objectMapper;
-	
+
 	@RequestMapping(path = { "", "/home" })
 	public String homePage(ModelMap model) {
 		model.addAttribute("userId", getUserName());
@@ -42,8 +41,19 @@ public class GetController {
 	}
 
 	@RequestMapping("/searchorder")
-	public String SearchOrder(ModelMap model) {
+	public String SearchOrder(ModelMap model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String customer_number = (String) session.getAttribute("customer_number");
+		String customer_name = (String) session.getAttribute("customer_name");
+		String last_date_range = (String) session.getAttribute("last_date_range");
+		String order_date = (String) session.getAttribute("orderDate");
+		String status = (String) session.getAttribute("status");
 		model.addAttribute("userId", getUserName());
+		model.addAttribute("customer_number", customer_number);
+		model.addAttribute("customer_name", customer_name);
+		model.addAttribute("last_date_range", last_date_range);
+		model.addAttribute("order_date", order_date);
+		model.addAttribute("status", status);
 		return "SearchOrder";
 	}
 
@@ -51,19 +61,19 @@ public class GetController {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
-	 
-	@RequestMapping(path = {"/editorder"})
-	public String handleOrder(ModelMap model,@Param("orderId") String orderId) {
+	@RequestMapping(path = { "/editorder" })
+	public String handleOrder(ModelMap model, @Param("orderId") String orderId) {
 		model.addAttribute("userName", getUserName());
-		model.addAttribute("type", "Edit"); 
-		model.addAttribute("orderId",orderId);
+		model.addAttribute("type", "Edit");
+		model.addAttribute("orderId", orderId);
 		return "EditOrder";
 	}
 
-	@RequestMapping(path = {"/GenerateInvoice"})
-	public String generateInvoice(ModelMap model,@Param("invoiceId") Long invoiceId, @Param("orderId") String orderId) throws JsonProcessingException {
+	@RequestMapping(path = { "/GenerateInvoice" })
+	public String generateInvoice(ModelMap model, @Param("invoiceId") Long invoiceId, @Param("orderId") String orderId)
+			throws JsonProcessingException {
 		model.addAttribute("userName", getUserName());
-		model.addAttribute("type", "Edit"); 
+		model.addAttribute("type", "Edit");
 		model.addAttribute("invoiceId", invoiceId);
 		model.addAttribute("orderId", orderId);
 		model.addAttribute("order_company", objectMapper.writeValueAsString(companyProfileRepo.findAll()));
@@ -81,54 +91,56 @@ public class GetController {
 		 */
 		return "GenerateInvoice";
 	}
-	
-	@RequestMapping(path = {"/Invoice"})
-	public String getInvoice(ModelMap model,@Param("orderId") Long orderId) {
-		model.addAttribute("userName", getUserName());
-		model.addAttribute("type", "Edit"); 
-		model.addAttribute("orderId",orderId);
-	 
-		return "Invoice";
-	} 
 
-	@RequestMapping(path = {"/createProfile"})
+	@RequestMapping(path = { "/Invoice" })
+	public String getInvoice(ModelMap model, @Param("orderId") Long orderId) {
+		model.addAttribute("userName", getUserName());
+		model.addAttribute("type", "Edit");
+		model.addAttribute("orderId", orderId);
+
+		return "Invoice";
+	}
+
+	@RequestMapping(path = { "/createProfile" })
 	public String createProfile(ModelMap model) {
-		model.addAttribute("userName", getUserName());		 
+		model.addAttribute("userName", getUserName());
 		return "createProfile";
 	}
-	
 
-	@RequestMapping(path = {"/turnOver"})
+	@RequestMapping(path = { "/turnOver" })
 	public String findTurnOver(ModelMap model) {
-		model.addAttribute("userName", getUserName());		 
+		model.addAttribute("userName", getUserName());
 		return "TurnOver";
 	}
-	  
-	@RequestMapping(path = {"/createParent"})
-	public String createParent(ModelMap model,@Param("serviceType") String serviceType ) throws JsonProcessingException {
-		model.addAttribute("userName", getUserName());		 
-		model.addAttribute("serviceType",serviceType);   
-		 
-		
+
+	@RequestMapping(path = { "/createParent" })
+	public String createParent(ModelMap model, @Param("serviceType") String serviceType)
+			throws JsonProcessingException {
+		model.addAttribute("userName", getUserName());
+		model.addAttribute("serviceType", serviceType);
+
 		return "createParent";
 	}
-	
-	
-	 
 
-	 @RequestMapping(value="/logout", method=RequestMethod.GET)  
-	    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {  
-	        Authentication auth = SecurityContextHolder.getContext().getAuthentication();  
-	        if (auth != null){      
-	           new SecurityContextLogoutHandler().logout(request, response, auth);  
-	        }  
-	         return "redirect:/";  
-	     }
-	
-	 @RequestMapping(path = {"/customeraddorder"})
-		public String handleCusomterOrder(ModelMap model) {
-			model.addAttribute("userName", getUserName());
-			model.addAttribute("type", "Create"); 
-			return "CustomerOrder";
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
+		return "redirect:/";
+	}
+
+	@RequestMapping(path = { "/customeraddorder" })
+	public String handleCusomterOrder(ModelMap model) {
+		model.addAttribute("userName", getUserName());
+		model.addAttribute("type", "Create");
+		return "CustomerOrder";
+	}
+
+	@RequestMapping(path = { "/invoiceList" })
+	public String findinvoiceList(ModelMap model) {
+		model.addAttribute("userName", getUserName());
+		return "InvoiceList";
+	}
 }

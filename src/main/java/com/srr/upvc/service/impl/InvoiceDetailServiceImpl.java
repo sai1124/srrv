@@ -2,6 +2,9 @@ package com.srr.upvc.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +21,9 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 	@Autowired
 	public InvoiceDetailRepo invoiceDetailRepo;
 	
-	
+	@Autowired
+	public EntityManager entityManager;
+
 	@Override
 	public InvoiceInfo getInvoiceById(Long Id) {
 		// TODO Auto-generated method stub
@@ -27,7 +32,9 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 
 	@Override
 	public InvoiceInfo SaveInvoiceDetails(InvoiceInfo obj) {
-		// TODO Auto-generated method stub
+		if(obj.getInvoiceNum() == null) {
+			obj.setSeqId(invoiceDetailRepo.getNextSeriesId());
+		}
 		return invoiceDetailRepo.save(obj);
 	}
 
@@ -91,6 +98,12 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 	@Override
 	public void updateGST(Long Id) {
 		invoiceDetailRepo.updateGST(Id);
+	}
+
+	@Override
+	public List<Map<String, Object>> fetchInvoiceListByDateRange(String invStartDate, String invEndDate) {
+		 
+		return invoiceDetailRepo.findInvoiceByDateRange(invStartDate, invEndDate);
 	}
 
 }

@@ -55,6 +55,8 @@ var paymentSet = [];
 						<label>Order Number</label> <input class="form-control" type="text" id="orderNum" disabled></input>
 						<input type="hidden" id="createdBy"></input>
 						<input type="hidden" id="orderId"></input>
+						<input type="hidden" id="invoiceId"></input>
+						<input type="hidden" id="invoiceNum"></input>
 					</div>
 				</div>
 
@@ -91,15 +93,12 @@ var paymentSet = [];
 				</div>
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group1">
-						<label>Order Status</label> <br /> <select id="status"
-							class="form-control"> 
-							<option value="NO_INVOICE_GENERATED">NO_INVOICE_GENERATED</option>
-							<option value="NO_INVOICE_REQUIRED">NO_INVOICE_REQUIRED</option>
-							<option value="INVOICE_GENERATED">INVOICE_GENERATED</option>
-							<option value="ORDER_NOT_REQUIRED">ORDER_NOT_REQUIRED</option>
-						</select>
+						<label>GST Number</label> 
+						<input type="text" id="gstNumber"
+							name="gstNumber" class="form-control" value="URP">
 					</div>
 				</div>
+				 
 				
 				<div class="col-sm-4 col-md-4" style="display: none;">
 					<div class="form-group1">
@@ -110,6 +109,18 @@ var paymentSet = [];
 				
  			</div>
 			<div class="col-sm-12 col-md-12">
+				<div class="col-sm-4 col-md-4">
+					<div class="form-group1">
+						<label>Order Status</label> <br /> <select id="status"
+							class="form-control"> 
+							<option value="NO_INVOICE_GENERATED">NO_INVOICE_GENERATED</option>
+							<option value="NO_INVOICE_REQUIRED">NO_INVOICE_REQUIRED</option>
+							<option value="INVOICE_GENERATED">INVOICE_GENERATED</option>
+							<option value="ORDER_NOT_REQUIRED">ORDER_NOT_REQUIRED</option>
+						</select>
+					</div>
+				</div>
+				
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group1">
 						<label>Order Amount</label> <br /> <input type="number" min="0"  id="orderAmount"
@@ -128,16 +139,18 @@ var paymentSet = [];
 							name="balanceAmount" class="form-control" disabled="disabled">
 					</div>
 				</div>
-				
+				<div class="col-sm-4 col-md-4">
+					<div class="form-group1">
+						<label>Invoice Amount</label> <br /> 
+						<input type="number" min="0"  id="invoiceAmount"
+							name="invoiceAmount" class="form-control" disabled="disabled">
+					</div>
+				</div>	
 				</div>
 				<div class="col-sm-12 col-md-12">
 					<div class="col-sm-4 col-md-4">
-						<div class="form-group1">
-							<label>Invoice Amount</label> <br /> 
-							<input type="number" min="0"  id="invoiceAmount"
-								name="invoiceAmount" class="form-control" disabled="disabled">
-						</div>
-					</div>				
+						&nbsp;
+					</div>		
 				</div>
 </div>
 			  <div class="col-sm-3 col-md-3">
@@ -256,7 +269,9 @@ var orderDetail = {};
 						
 						$("#status").val(orderDetail.status);
 						$("#invoiceAmount").val(orderDetail.invoiceAmount);
-
+						$("#gstNumber").val(orderDetail.gstNumber);
+						$("#invoiceId").val(orderDetail.invoiceId);
+						$("#invoiceNum").val(orderDetail.invoiceNum);
 						if(orderDetail.invoiceId ==null) {
 							$("#generateInvoice").hide();
 						} else {
@@ -289,7 +304,7 @@ var orderDetail = {};
 			orderDetail.contactNumber=$("#contactNumber").val();
 			orderDetail.customerAddress=$("#customerAddress").val().toUpperCase(); 
 			orderDetail.email=$("#email").val();
-			//orderDetail.amountReceived=$("#amountReceived").val();
+			orderDetail.gstNumber=$("#gstNumber").val();
 			orderDetail.orderAmount=$("#orderAmount").val();
 			orderDetail.balanceAmount= parseInt(orderDetail.orderAmount)-parseInt(orderDetail.amountReceived);
 			orderDetail.status=($("#status").val() == null ||$("#status").val()== ""  ) ? "NO_INVOICE_GENERATED":$("#status").val(); 

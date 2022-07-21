@@ -47,7 +47,59 @@ public class CustomerOrderDto {
 	private Double invoiceAmount;
 
 	private String invoiceNum;
+
+	private String gstNumber;
 	
+	private String lastDateRange;
+	
+	private String invoiceDate;
+	
+	public  CustomerOrderDto() {
+
+	}
+	public CustomerOrderDto(Long orderId, String customerName, String  contactNumber, String  orderDate, String  dueDate, Double  orderAmount, Double  balanceAmount, Long  invoiceId, String   invoiceDate, String  invoiceNum, Double  totalAmount,String status) {
+		this.orderId = orderId;
+		this.customerName =customerName;
+		this.contactNumber =contactNumber;
+		this.invoiceAmount =totalAmount;
+		this.invoiceNum = invoiceNum;
+		this.orderDate =  orderDate;
+		this.dueDate =  dueDate;
+		this.orderAmount = orderAmount;
+		this.balanceAmount =balanceAmount;
+		this.invoiceId = invoiceId;
+		this.invoiceNum = invoiceNum;
+		this.invoiceAmount = totalAmount;
+		this.invoiceDate=invoiceDate;
+		this.status = status;
+	}
+
+
+	
+	public String getInvoiceDate() {
+		return invoiceDate;
+	}
+	public void setInvoiceDate(String invoiceDate) {
+		this.invoiceDate = invoiceDate;
+	}
+
+
+	public String getLastDateRange() {
+		return lastDateRange;
+	}
+
+	public void setLastDateRange(String lastDateRange) {
+		this.lastDateRange = lastDateRange;
+	}
+
+	public String getGstNumber() {
+		return gstNumber;
+	}
+
+	public void setGstNumber(String gstNumber) {
+		this.gstNumber = gstNumber;
+	}
+
 	public String getInvoiceNum() {
 		return invoiceNum;
 	}

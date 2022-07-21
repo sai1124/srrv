@@ -98,7 +98,14 @@ th {
 				<div class="col-sm-6 col-md-6">
 					<div class="form-group">
 						<label>Adv Amount</label> <input type="number" id="advanceAmount"
-							name="advanceAmount" class="form-control">
+							name="advanceAmount" class="form-control"/>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group">
+						<label>GST Number</label> <br />
+						<input type="text" id="gstNumber"
+							name="gstNumber" class="form-control" value="URP"/>
 					</div>
 				</div>
 				<div class="col-sm-6 col-md-6">
@@ -187,13 +194,14 @@ var payments_columns = [
 	var itemMap = {};
 	var elements = [ "orderId", "customerName", "customerAddress", "orderDate", "dueDate",
 			"contactNumber", "status", "advanceAmount", "orderAmount",
-			"balanceAmount", "paymentType", "email", "createdBy" ];
+			"balanceAmount", "paymentType", "email", "createdBy","gstNumber" ];
 	 
 	var elementDesc = {
 		"customerName" : "Customer Name",
 		"customerAddress" : "Customer Address",
 		"dueDate":"Due Date",
-		"contactNumber" : "Contact Number"
+		"contactNumber" : "Contact Number",
+		"gstNumber" : "GST Number"
 	};
 	$(document)
 			.ready(
@@ -220,6 +228,7 @@ var payments_columns = [
 						$("#customerAddress").attr("autocomplete", "new-password");
 						$("#contactNumber").attr("autocomplete", "new-password"); 
 						$("#customerAddress").val("");
+						$("#gstNumber").attr("autocomplete", "new-password");
 						$("#clearBtn").on('click', function() {
 							for (var i = 0; i < elements.length; i++) {
 								var element = "#" + elements[i];

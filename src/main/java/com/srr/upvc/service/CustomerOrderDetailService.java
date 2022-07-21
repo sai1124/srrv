@@ -1,9 +1,8 @@
 package com.srr.upvc.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.persistence.Entity;
 
 import com.srr.upvc.dto.CustomerOrderDto;
 import com.srr.upvc.entity.CustomerOrder;
@@ -18,7 +17,7 @@ public interface CustomerOrderDetailService {
 	
 	public CustomerOrder convertDtoToEntity(CustomerOrderDto req);
 	
-	public List<CustomerOrder> findCustomerOrders(CustomerOrderDto req);
+	public List<CustomerOrderDto> findCustomerOrders(CustomerOrderDto req);
 	 
 	public CustomerOrder createNewCustomerOrder(CustomerOrderDto req,boolean isModify);
 	
