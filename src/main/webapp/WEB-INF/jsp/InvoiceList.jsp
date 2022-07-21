@@ -95,16 +95,28 @@
       },
       {
         title: "C-GST",
-        data: "c_gst_amt"
+        data: "c_gst_amt",
+        render: function (data, type, row) {
+          return formatNumber(data);
+        }
       }, {
         title: "S-GST",
-        data: "s_gst_amt"
+        data: "s_gst_amt",
+        render: function (data, type, row) {
+          return formatNumber(data);
+        }
       }, {
         title: "GST Rounding",
-        data: "gst_rounding"
+        data: "gst_rounding",
+        render: function (data, type, row) {
+          return formatNumber(data);
+        }
       }, {
         title: "Total GST",
-        data: "gst_amt"
+        data: "gst_amt",
+        render: function (data, type, row) {
+          return formatNumber(data);
+        }
       }, {
         title: "Total",
         data: "total_amount",
