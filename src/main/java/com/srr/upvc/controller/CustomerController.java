@@ -50,6 +50,34 @@ public class CustomerController {
 		return res;
 	}
 	
+
+	@PostMapping("/copy/order")
+	public AppEntity<CustomerOrderDto> copyCustomerOrder(@RequestBody CustomerOrderDto input) {
+		AppEntity<CustomerOrderDto> res = new AppEntity<CustomerOrderDto>();
+		res.setStatus(ResponseCode.FAILURE);
+		ArrayList<CustomerOrderDto> records = new ArrayList<CustomerOrderDto>(); 
+		CustomerOrderDto req = customerOrderDetailService.convertEntityToDTO(customerOrderDetailService.findCustomerOrderbyId(input.getOrderId()));
+		req.setAdvanceAmount(0.0);
+		req.setAmountReceived(0.0);
+		req.setBalanceAmount(0.0);
+		req.setOrderAmount(0.0);
+		req.setOrderId(null);		
+		
+		req.setStatus("NO_INVOICE_GENERATED");
+
+		req.setCreatedBy(input.getCreatedBy());
+		req.setInvoiceId(null);
+		req.setInvoiceNum("");
+		req.setInvoiceAmount(0.0);
+		req.setInvoiceDate("");
+		CustomerOrder order = customerOrderDetailService.createNewCustomerOrder(req, false);  
+		CustomerOrderDto output = customerOrderDetailService.convertEntityToDTO(order); 
+		records.add(output);
+		res.setRecords(records); 
+		res.setStatus(ResponseCode.SUCCESS);
+		return res;
+	}
+
 	public void savePayment(PaymentDto req) { 
 			InvoicePayment rec = new InvoicePayment();
 			 

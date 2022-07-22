@@ -12,7 +12,7 @@ public interface CustomerOrderRepo extends JpaRepository<CustomerOrder, Long> {
 	// findByCustomerNameContainingAndContactNumberAndOrderId(@Param("contactNumber")
 	// String customerName, @Param("contactNumber") String contactNumber,
 	// @Param("orderId") Long orderId);
-	@Query(value="SELECT  CONCAT(MONTH(ORDER_DATE),'-',YEAR(ORDER_DATE)) AS NUM_MONTH_YEAR,CONCAT(MONTHNAME(ORDER_DATE),'-',YEAR(ORDER_DATE)) AS MONTH_YEAR,SUM(ORDER_AMOUNT) AS AMOUNT FROM CUSTOMER_ORDER_INFO WHERE ORDER_DATE BETWEEN  STR_TO_DATE(:orderStartDate, '%d/%m/%Y') and  STR_TO_DATE(:orderEndDate, '%d/%m/%Y') GROUP BY MONTH_YEAR,NUM_MONTH_YEAR UNION SELECT 'Total' AS NUM_MONTH_YEAR,'Total' AS MONTH_YEAR,SUM(ORDER_AMOUNT) AS AMOUNT  FROM CUSTOMER_ORDER_INFO WHERE ORDER_DATE BETWEEN  STR_TO_DATE(:orderStartDate, '%d/%m/%Y') and  STR_TO_DATE(:orderEndDate, '%d/%m/%Y') GROUP BY MONTH_YEAR,NUM_MONTH_YEAR ", nativeQuery=true)
+	@Query(value="SELECT T.* FROM (SELECT  MONTH(ORDER_DATE)+(YEAR(ORDER_DATE)*10) AS NUM_MONTH_YEAR,CONCAT(MONTHNAME(ORDER_DATE),'-',YEAR(ORDER_DATE)) AS MONTH_YEAR,SUM(ORDER_AMOUNT) AS AMOUNT FROM CUSTOMER_ORDER_INFO WHERE ORDER_DATE BETWEEN  STR_TO_DATE(:orderStartDate, '%d/%m/%Y') and  STR_TO_DATE(:orderEndDate, '%d/%m/%Y') GROUP BY MONTH_YEAR,NUM_MONTH_YEAR UNION SELECT 99999 AS NUM_MONTH_YEAR,'Total' AS MONTH_YEAR,SUM(ORDER_AMOUNT) AS AMOUNT  FROM CUSTOMER_ORDER_INFO WHERE ORDER_DATE BETWEEN  STR_TO_DATE(:orderStartDate, '%d/%m/%Y') and  STR_TO_DATE(:orderEndDate, '%d/%m/%Y') GROUP BY MONTH_YEAR,NUM_MONTH_YEAR) T  ORDER BY T.NUM_MONTH_YEAR ASC ", nativeQuery=true)
 	List<Map<String,Object>> findSumByDateRange(String orderStartDate, String orderEndDate);
 
 	

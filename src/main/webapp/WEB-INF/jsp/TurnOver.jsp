@@ -71,6 +71,11 @@
     var item_columns = [
       {
         title: "Month",
+        data: "NUM_MONTH_YEAR",
+        visible: false
+      },
+      {
+        title: "Month",
         data: "MONTH_YEAR"
       }, {
         title: "Total",
@@ -126,11 +131,11 @@
                   destroy: true, // add this line to distory 
                   data: itemSet,
                   columns: item_columns,
-      "rowCallback": function (row, data, index) {
-				if (data.MONTH_YEAR == "Total") {
-					$('td', row).css('font-weight', 'bold');
-				} 
-			}
+                  "rowCallback": function (row, data, index) {
+                    if (data.MONTH_YEAR == "Total") {
+                      $('td', row).css('font-weight', 'bold');
+                    }
+                  }
                 });
               }
             }
@@ -184,22 +189,22 @@
         data: itemSet,
         columns: item_columns
       });
-      
+
 
     });
 
-    
+
     var formatNumber = function (data) {
-        var num = 0;
-        if (data != null) {
-          num = data;
-        }
-        return num.toLocaleString('en-IN', {
-          maximumFractionDigits: 2,
-          style: 'currency',
-          currency: 'INR'
-        });
+      var num = 0;
+      if (data != null) {
+        num = data;
       }
+      return num.toLocaleString('en-IN', {
+        maximumFractionDigits: 2,
+        style: 'currency',
+        currency: 'INR'
+      });
+    }
   </script>
 
   </html>

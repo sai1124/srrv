@@ -21,7 +21,7 @@
 <script src="/js/jquery/pdfmake.min.js"></script>
 <script src="/js/jquery/vfs_fonts.js"></script>
 <script src="/js/jquery/buttons.html5.min.js"></script>
-
+<script src="/js/jquery/dataTables.rowGroup.min.js"></script>
 <style>
 .header {
 	text-align: center;

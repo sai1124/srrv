@@ -68,7 +68,7 @@
     var financial_year_month = "";
     var itemSet = [];
 
-    var item_columns = [
+    var item_columns = [ 
       {
         title: "Invoice Num",
         data: "invoice_number"
@@ -96,24 +96,28 @@
       {
         title: "C-GST",
         data: "c_gst_amt",
+        className: "text-right",
         render: function (data, type, row) {
           return formatNumber(data);
         }
       }, {
         title: "S-GST",
         data: "s_gst_amt",
+        className: "text-right",
         render: function (data, type, row) {
           return formatNumber(data);
         }
       }, {
         title: "GST Rounding",
         data: "gst_rounding",
+        className: "text-right",
         render: function (data, type, row) {
           return formatNumber(data);
         }
       }, {
         title: "Total GST",
         data: "gst_amt",
+        className: "text-right",
         render: function (data, type, row) {
           return formatNumber(data);
         }
@@ -167,10 +171,7 @@
                 $('#myTable').DataTable({
                   dom: 'Bfrtip',
                   buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5'
+                    'excelHtml5' 
                   ],
                   "paging": false,
                   "ordering": false,
@@ -179,6 +180,9 @@
                   destroy: true, // add this line to distory 
                   data: itemSet,
                   columns: item_columns,
+                  rowGroup: {
+                    dataSrc: "MONTH_NAME"
+                  },
                   "rowCallback": function (row, data, index) {
                     if (data.MONTH_YEAR == "Total") {
                       $('td', row).css('font-weight', 'bold');

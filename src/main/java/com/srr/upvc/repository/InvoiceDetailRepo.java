@@ -20,6 +20,6 @@ public interface InvoiceDetailRepo extends JpaRepository<InvoiceInfo, Long> {
 	@Query(value = "SELECT nextval(INV_SEQ)", nativeQuery = true)
 	Long getNextSeriesId();
 
-	@Query(value="SELECT INV.*, CO.CUSTOMER_NAME,CO.CUSTOMER_NUMBER,CO.GST_NUMBER FROM INVOICE_INFO INV INNER JOIN CUSTOMER_ORDER_INFO CO ON CO.ORDER_ID=INV.ORDER_ID WHERE INV.INVOICE_DATE BETWEEN  STR_TO_DATE(:invStartDate, '%d/%m/%Y') and  STR_TO_DATE(:invEndDate, '%d/%m/%Y') ORDER BY INV.INVOICE_ID ASC ", nativeQuery=true)
+	@Query(value="SELECT INV.*, CO.CUSTOMER_NAME,CO.CUSTOMER_NUMBER,CO.GST_NUMBER, MONTH(ORDER_DATE) AS NUM_MONTH,MONTHNAME(INV.INVOICE_DATE) AS MONTH_NAME FROM INVOICE_INFO INV INNER JOIN CUSTOMER_ORDER_INFO CO ON CO.ORDER_ID=INV.ORDER_ID WHERE INV.INVOICE_DATE BETWEEN  STR_TO_DATE(:invStartDate, '%d/%m/%Y') and  STR_TO_DATE(:invEndDate, '%d/%m/%Y') ORDER BY INV.INVOICE_ID ASC ", nativeQuery=true)
 	List<Map<String,Object>> findInvoiceByDateRange(String invStartDate, String invEndDate);
 }
