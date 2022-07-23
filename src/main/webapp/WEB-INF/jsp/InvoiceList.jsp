@@ -68,7 +68,7 @@
     var financial_year_month = "";
     var itemSet = [];
 
-    var item_columns = [ 
+    var item_columns = [
       {
         title: "Invoice Num",
         data: "invoice_number"
@@ -87,11 +87,16 @@
       },
       {
         title: "Customer Number",
-        data: "CUSTOMER_NUMBER"
+        data: "CUSTOMER_NUMBER",
+        visible: false
       },
       {
         title: "Customer GST",
         data: "GST_NUMBER"
+      },
+      {
+        title: "Amt Before Tax",
+        data: "amount_excluding_tax"
       },
       {
         title: "C-GST",
@@ -108,15 +113,15 @@
           return formatNumber(data);
         }
       }, {
-        title: "GST Rounding",
-        data: "gst_rounding",
+        title: "Total GST",
+        data: "gst_amt",
         className: "text-right",
         render: function (data, type, row) {
           return formatNumber(data);
         }
       }, {
-        title: "Total GST",
-        data: "gst_amt",
+        title: "GST Rounding",
+        data: "gst_rounding",
         className: "text-right",
         render: function (data, type, row) {
           return formatNumber(data);
@@ -171,7 +176,7 @@
                 $('#myTable').DataTable({
                   dom: 'Bfrtip',
                   buttons: [
-                    'excelHtml5' 
+                    'excelHtml5'
                   ],
                   "paging": false,
                   "ordering": false,
