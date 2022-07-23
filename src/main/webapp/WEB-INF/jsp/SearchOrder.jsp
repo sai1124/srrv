@@ -152,7 +152,7 @@
 			columns : [
 
 			{
-				title : "Customer Order ID",
+				title : "Sr No.",
 				data : "orderId" 
 			},{
 				title : " Status",

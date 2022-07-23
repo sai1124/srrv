@@ -1,1 +1,5 @@
 # POS
+
+Year once on April 1st need to run below script
+DROP SEQUENCE INV_SEQ;
+CREATE SEQUENCE INV_SEQ INCREMENT BY 1 START WITH 1;

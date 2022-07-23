@@ -154,7 +154,7 @@
 				</tr>
 				<tr>
 					<td style="border-right:1px solid #0c0c0c;border-top:1px solid #0c0c0c;text-transform: uppercase;vertical-align:top;">
-						<span id="" >Customer GST</span></br>
+						<span id="" >Customer GST : </span>
 						<span id="customerGST" style="font-weight: bold"></span></br>
 					</td>
 					<td
