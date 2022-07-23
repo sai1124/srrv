@@ -145,9 +145,10 @@
       for (var i = 0; i <= loopcount; i++) {
         var value = current_year + "-" + (current_year + 1);
         console.log(value);
+        var text = value +" - (SRR KORAGAM)";
         $('#financial_year')
-          .append($('<option>', { value: value })
-            .text(value));
+          .append($('<option>', {value : value })
+            .text(text));
       }
 
       $("#submitBtn").on('click', function () {
