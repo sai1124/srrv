@@ -224,7 +224,7 @@ thead>td {
 						<div class="form-group1">
 							<select id="set_entry_desc" class="form-control">
 								<option value="SUPPLY OF UPVC WINDOWS">SUPPLY OF UPVC WINDOWS</option>
-								<option value="SUPPLY OF WPC FRAMES AND WINDOWS">SUPPLY OF WPC FRAMES AND WINDOWS</option>
+								<option value="SUPPLY OF WPC FRAMES AND DOORS">SUPPLY OF WPC FRAMES AND DOORS</option>
 							</select>
 						</div>
 					</div>
