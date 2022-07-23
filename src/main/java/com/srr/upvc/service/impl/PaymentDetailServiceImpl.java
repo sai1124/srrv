@@ -62,6 +62,7 @@ public class PaymentDetailServiceImpl implements PaymentDetailService {
 	@Override
 	public void deleteInvoicePaymentById(Long paymentId) {
 		// TODO Auto-generated method stub
+		///validation 
 		InvoicePayment rec = paymentDetailRepo.findById(paymentId).get();
 		
 		 paymentDetailRepo.deleteById(paymentId);
