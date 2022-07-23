@@ -96,7 +96,10 @@
       },
       {
         title: "Amt Before Tax",
-        data: "amount_excluding_tax"
+        data: "amount_excluding_tax",
+        render: function (data, type, row) {
+          return formatNumber(data);
+        }
       },
       {
         title: "C-GST",
