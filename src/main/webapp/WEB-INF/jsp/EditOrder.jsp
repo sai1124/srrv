@@ -345,7 +345,7 @@
 
 
 			$("#generateInvoice").on("click", function () {
-				window.open("/GenerateInvoice?orderId=" + orderId, "_blank");
+				window.open("/GenerateInvoice?orderId=" + orderId+"&invoiceId="+orderDetail.invoiceId, "_blank");
 			});
 
 			$("#modifyInvoice").on("click", function () {

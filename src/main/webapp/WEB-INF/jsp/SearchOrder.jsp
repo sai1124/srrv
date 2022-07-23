@@ -206,7 +206,7 @@
 				}
 			},{
 				title : "Inv Amt",
-				data : "totalAmount",
+				data : "invoiceAmount",
 				className : "text-right",
 				render : function(data, type, row) {
 					return formatNumber(data);
