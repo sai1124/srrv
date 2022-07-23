@@ -97,6 +97,7 @@
       {
         title: "Amt Before Tax",
         data: "amount_excluding_tax",
+        className: "text-right",
         render: function (data, type, row) {
           return formatNumber(data);
         }
