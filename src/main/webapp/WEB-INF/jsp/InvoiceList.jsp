@@ -67,6 +67,7 @@
     var orderEndDate = "";
     var financial_year_month = "";
     var itemSet = [];
+    var invoiceTotals = [];
 
     var item_columns = [
       {
@@ -78,7 +79,7 @@
         data: "invoice_date",
         className: "text-center",
         render: function (data, type, row) {
-          return defaultDateFormat(data);
+          return data != null ? defaultDateFormat(data): "";
         }
       },
       {
@@ -162,9 +163,31 @@
 
         $.ajax({
           type: "POST",
+          url: "/post/find/invoiceTotals",
+          data: JSON.stringify(orderDetail),
+          dataType: "json",
+          "contentType": "application/json",
+          async:false,
+          success: function (data) {
+            invoiceTotals = [];
+            if( data != null && data.records != null && data.records.length >0) {
+              invoiceTotals = data.records;
+              invoiceTotals[0].invoice_number = invoiceTotals[0].MONTH_NAME;
+              invoiceTotals[0].CUSTOMER_NUMBER = " ";
+              invoiceTotals[0].CUSTOMER_NAME = " ";
+              invoiceTotals[0].GST_NUMBER = " ";
+              invoiceTotals[0].MONTH_YEAR="Total";
+            }
+          },
+          error : function (data) {
+          }
+        });
+        $.ajax({
+          type: "POST",
           url: "/post/find/invoiceList",
           data: JSON.stringify(orderDetail),
           dataType: "json",
+          async:false,
           "contentType": "application/json",
           success: function (data) {
             try {
@@ -176,8 +199,12 @@
               if (data.status == "FAILURE") {
                 alert("failure -->" + data.message);
               } else {
-                itemSet = data.records;
-
+                itemSet = data.records; 
+                console.log(invoiceTotals);
+                if(invoiceTotals!= null && invoiceTotals.length>0) {
+                  itemSet = [invoiceTotals[0], ...itemSet];
+                }
+                
                 $('#myTable').DataTable({
                   dom: 'Bfrtip',
                   buttons: [
