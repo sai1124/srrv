@@ -357,4 +357,13 @@ public class RestPostController {
 		res.setStatus(ResponseCode.SUCCESS);
 		return res;
 	}
+
+	@PostMapping("/find/invoiceTotals")
+	public AppEntity<Map<String,Object>> findInvoiceTotals(@RequestBody CustomerOrderDto req, HttpServletRequest request) {
+		AppEntity<Map<String, Object>> res = new AppEntity<Map<String, Object>>();
+		res.setStatus(ResponseCode.FAILURE);
+		res.setRecords(invoiceDetailService.fetchInvoiceTotalsByDateRange(req.getOrderStartDate(), req.getOrderEndDate()));
+		res.setStatus(ResponseCode.SUCCESS);
+		return res;
+	}
 }

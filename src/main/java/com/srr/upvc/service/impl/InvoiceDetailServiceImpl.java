@@ -106,4 +106,9 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 		return invoiceDetailRepo.findInvoiceByDateRange(invStartDate, invEndDate);
 	}
 
+	@Override
+	public List<Map<String, Object>> fetchInvoiceTotalsByDateRange(String invStartDate, String invEndDate) {
+		return invoiceDetailRepo.findInvoiceTotalsByDateRange(invStartDate, invEndDate);
+	}
+
 }

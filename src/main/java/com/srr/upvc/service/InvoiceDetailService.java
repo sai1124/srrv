@@ -21,5 +21,8 @@ public interface InvoiceDetailService {
 	public InvoiceInfoDto convertEntityToDTO(InvoiceInfo req);
 
 	public InvoiceInfo convertDtoToEntity(InvoiceInfoDto req);
+
 	public List<Map<String,Object>> fetchInvoiceListByDateRange(String invStartDate,String invEndDate);
+
+	public List<Map<String,Object>> fetchInvoiceTotalsByDateRange(String invStartDate,String invEndDate);
 }
