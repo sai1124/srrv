@@ -43,6 +43,11 @@
             </select>
           </div>
         </div>
+
+        <div class="col-sm-6 col-md-4">
+          <table id="myInvoiceTotals" class="table table-striped table-bordered" style="width: 100%">
+          </table>
+        </div>
       </div>
 
 
@@ -69,6 +74,18 @@
     var itemSet = [];
     var invoiceTotals = [];
 
+    var invoice_total_columns = [{
+        title: "Month",
+        data: "MONTH_NAME"
+      },
+      {
+        title: "Total",
+        data: "MONTH_TOTAL_AMOUNT",
+        className: "text-right",
+        render: function (data, type, row) {
+          return formatNumber(data);
+        }
+      }];
     var item_columns = [
       {
         title: "Invoice Num",
@@ -170,13 +187,28 @@
           async:false,
           success: function (data) {
             invoiceTotals = [];
-            if( data != null && data.records != null && data.records.length >0) {
-              invoiceTotals = data.records;
-              invoiceTotals[0].invoice_number = invoiceTotals[0].MONTH_NAME;
-              invoiceTotals[0].CUSTOMER_NUMBER = " ";
-              invoiceTotals[0].CUSTOMER_NAME = " ";
-              invoiceTotals[0].GST_NUMBER = " ";
-              invoiceTotals[0].MONTH_YEAR="Total";
+            try {
+              $('#myInvoiceTotals').DataTable().destroy();
+            } catch (e) {
+              console.log(e);
+            }
+            if (data != null) {
+              if (data.status == "FAILURE") {
+                alert("failure -->" + data.message);
+              } else {
+                if( data != null && data.records != null && data.records.length >0) {
+                    invoiceTotals = data.records; 
+                }  
+                $('#myInvoiceTotals').DataTable({
+                  "paging": false,
+                  "ordering": false,
+                  "info": false,
+                  "bFilter": false,
+                  destroy: true, 
+                  data: invoiceTotals,
+                  columns: invoice_total_columns
+                });
+              }
             }
           },
           error : function (data) {
@@ -199,12 +231,7 @@
               if (data.status == "FAILURE") {
                 alert("failure -->" + data.message);
               } else {
-                itemSet = data.records; 
-                console.log(invoiceTotals);
-                if(invoiceTotals!= null && invoiceTotals.length>0) {
-                  itemSet = [invoiceTotals[0], ...itemSet];
-                }
-                
+                itemSet = data.records;  
                 $('#myTable').DataTable({
                   dom: 'Bfrtip',
                   buttons: [
@@ -278,6 +305,15 @@
         destroy: true, // add this line to distory 
         data: itemSet,
         columns: item_columns
+      });
+      $('#myInvoiceTotals').DataTable({
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "bFilter": false,
+        destroy: true, // add this line to distory 
+        data: itemSet,
+        columns: invoice_total_columns
       });
 
 
