@@ -204,9 +204,14 @@
                   "ordering": false,
                   "info": false,
                   "bFilter": false,
-                  destroy: true, 
+                  destroy: true,
                   data: invoiceTotals,
-                  columns: invoice_total_columns
+                  columns: invoice_total_columns, 
+                  "rowCallback": function (row, data, index) {
+                    if (data.MONTH_NAME == "Total") {
+                      $('td', row).css('font-weight', 'bold');
+                    }
+                  }
                 });
               }
             }
