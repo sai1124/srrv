@@ -10,7 +10,7 @@ public class ItemDto {
 
 	private Double price;
 	
-	private int quantity;
+	private Double quantity;
 
 	private Double total;
 	
@@ -50,11 +50,11 @@ public class ItemDto {
 		this.price = price;
 	}
 
-	public int getQuantity() {
+	public Double getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
 

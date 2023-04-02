@@ -22,7 +22,7 @@ public class InvoiceItem {
 	
 	private String itemDesc;
 	
-	private int quantity;
+	private double quantity;
 	
 	private double price;
 	
@@ -68,11 +68,11 @@ public class InvoiceItem {
 		this.itemDesc = itemDesc;
 	}
 
-	public int getQuantity() {
+	public double getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
 

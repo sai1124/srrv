@@ -160,6 +160,11 @@
 
     $(document).ready(function () {
       $('#financial_year').empty();
+      var _value= application_year+ "-" + current_year ;
+      var _text = _value +" - (SRR KORAGAM)";
+        $('#financial_year')
+          .append($('<option>', {_value : _value })
+            .text(_text));
       for (var i = 0; i <= loopcount; i++) {
         var value = current_year + "-" + (current_year + 1);
         console.log(value);
