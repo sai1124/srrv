@@ -124,8 +124,8 @@ public class RestPostController {
 			  
 			record = invoiceDetailService.SaveInvoiceDetails(record);
 			if(record.getInvoiceNum()==null) {
-				record.setInvoiceNum(record.getInvoiceId()+"/"+invNum);
-				//record.setInvoiceNum(record.getSeqId()+"/"+invNum);
+				record.setInvoiceNum(invNum);
+				record.setInvoiceNum(record.getSeqId()+"/"+invNum);
 				record = invoiceDetailService.SaveInvoiceDetails(record);
 			}
 			order.setInvoiceId(record.getInvoiceId());
