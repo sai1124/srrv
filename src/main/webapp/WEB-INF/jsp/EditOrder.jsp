@@ -34,15 +34,12 @@
 		<jsp:directive.include file="Header.jsp" />
 		<div style="text-align: center; font-size: 30px;">EDIT-ORDER</div>
 		<div class="container">
-			
 			<div class="row">
 				<div class="col-md-6">
 					&nbsp;
 				</div>
-				<div class="col-md-6" style="float: right;" id="button_section">
-					<a class="btn btn-info" href="/orderdetails?orderId=${orderId}" target="_blank">
-						<i class="fa fa-list"></i> Edit Order Details
-					</a> &nbsp;&nbsp;&nbsp;&nbsp;
+				<div class="col-md-6" id="button_section">
+
 					<input type="button" id="generateInvoice" style="float: right;margin-right: 20px;"
 						class="btn btn-primary" value="Print Invoice"></input>
 					<input type="button" id="modifyInvoice" style="float: right;margin-right: 20px;"
@@ -191,14 +188,31 @@
 									<option value="CASH" selected>CASH</option>
 									<option value="ONLINE">ONLINE</option>
 									<option value="CHEQUE">CHEQUE</option>
+									<option value="CREDIT CARD">CREDIT CARD</option>
+									<option value="DEBIT CARD">DEBIT CARD</option>
 									<option value="OTHERS">OTHERS</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-sm-3 col-md-4">
 							<div class="form-group1">
-								<label>Payment Ref</label> <br /> <input type="text" id="reference" name="reference"
-									class="form-control" autocomplete="no-password"></input>
+								<label>Payment Ref</label> <br /> 
+									<select id="reference"  name="reference" class="form-control">
+
+										<option value="" selected>Select One</option>
+										<option value="VIJAY KUMAR">VIJAY KUMAR</option>
+										<option value="SRIRAMA MURTHY">SRIRAMA MURTHY</option>
+										<option value="VENKATARAMANA">VENKATARAMANA</option>
+										<option value="VENKATESH">VENKATESH</option>
+										<option value="KRISHNA">KRISHNA</option>
+										<option value="T_GOPI">T.GOPI</option>
+										<option value="P_CHANDHU">P.CHANDHU</option>
+										<option value="CH_RAMBABU">CH.RAMBABU</option>
+										<option value="HARI BABU">HARI BABU</option>
+										<option value="Advance Amount">Advance Amount</option>
+										<option value="CARD">CARD</option>
+										<option value="OTHERS">OTHERS</option>
+									</select>
 								<input type="hidden" id="paymentId"></input>
 							</div>
 						</div>

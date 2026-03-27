@@ -26,6 +26,8 @@
 							<li role="separator" class="divider"></li>
 							<li id="invoiceListId"><a href="/invoiceList">Invoice List</a></li>
 							<li role="separator" class="divider"></li>
+							<li id="invoiceListId"><a href="/balancesearch">Balance List</a></li>
+							<li role="separator" class="divider"></li>
 						</ul>
 						 
 					</li>

@@ -66,7 +66,7 @@
 
 	<body>
 		<div class="container" style="margin-top:5%">
-			<table id="invoice_header" style="width: 100%;border:1px solid #0c0c0c;">
+			<table id="invoice_header" style="width: 100%;border:1px solid #0c0c0c;display: none;">
 				<tr>
 					<td
 						style="width: 20%;border-right:1px solid #0c0c0c;text-align: center;border-top:1px solid #0c0c0c;">
@@ -98,7 +98,7 @@
 				</tr>
 			</table>
 			<table
-				style="width: 100%;border-left:1px solid #0c0c0c;border-right :1px solid #0c0c0c;border-bottom:1px solid #0c0c0c;">
+				style="width: 100%;border:1px solid #0c0c0c;border-right :1px solid #0c0c0c;border-bottom:1px solid #0c0c0c; margin-top: 150px;">
 				<tr>
 
 					<td style="border-right:1px solid #0c0c0c;font-weight: bold;background: lightgrey;">
@@ -375,7 +375,7 @@
 
 				tr_row += "</tr>";
 				tr_row += "<tr style='border:1px solid  #0c0c0c;'>";
-				tr_row += "<td  colspan='5' style='text-align:left;border-right:1px solid  #0c0c0c;font-weight:bold;'>SRI RAJARAJESWARI UPVC WINDOORS SYSTEMS</td>";
+				tr_row += "<td  colspan='5' style='text-align:bottom;border-right:1px solid  #0c0c0c;font-weight:bold;'>SRI RAJARAJESWARI UPVC WINDOORS SYSTEMS</td>";
 
 				tr_row += "<td  colspan='3' style='text-align:right;border-right:1px solid  #0c0c0c;font-weight:bold'>  &nbsp;&nbsp;</td>";
 
@@ -427,11 +427,11 @@
 				tr_row += "</tr>";
 				tr_row += "<tr style='border:1px solid  #0c0c0c;'>";
 				tr_row += "<td colspan=4 style='text-align:center;border-right:1px solid  #0c0c0c;'> Terms & Conditions Apply</td>";
-				tr_row += "<td  colspan=4   style='text-align:center;border-right:1px solid  #0c0c0c; border-botton:0px !important; font-weight:bold;'>SRI RAJARAJESWARI UPVC WINDOORS SYSTEMS</td>";
+				tr_row += "<td  colspan=4   style='text-align:center;border-right:1px solid  #0c0c0c; border-botton:0px !important; font-weight:bold;height:150px'>SRI RAJARAJESWARI UPVC WINDOORS SYSTEMS <br/><br/><br/><br/>Authorised Signature</td>";
 				tr_row += "</tr>";
-				tr_row += "<tr style='border:1px solid  #0c0c0c;'>";
-				tr_row += "<td  colspan=4  style='text-align:center;border-right:1px solid  #0c0c0c;'><img src='images/tree.png' style='height:50px'/>*Save Trees*&nbsp; <img src='images/tree.png' style='height:50px'/></td>";
-				tr_row += "<td  colspan=4 style='text-align:center;border-right:1px solid  #0c0c0c;'><br/><br/><br/><br/>Authorised Signature</td>";
+				// tr_row += "<tr style='border:1px solid  #0c0c0c;'>";
+				// tr_row += "<td  colspan=4  style='text-align:center;border-right:1px solid  #0c0c0c;'><img src='images/tree.png' style='height:50px'/>*Save Trees*&nbsp; <img src='images/tree.png' style='height:50px'/></td>";
+				// tr_row += "<td  colspan=4 style='text-align:center;border-right:1px solid  #0c0c0c;'><br/><br/><br/><br/>Authorised Signature</td>";
 				tr_row += "</tr>";
 				tr_row += "<tr></tr>";
 				$("#invoiceAgg").html(tr_row);
