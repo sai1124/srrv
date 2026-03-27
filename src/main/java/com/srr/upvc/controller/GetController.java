@@ -64,6 +64,25 @@ public class GetController {
 		return "SearchOrder";
 	}
 
+
+	@RequestMapping("/balancesearch")
+	public String BalanceSearch(ModelMap model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String customer_number = (String) session.getAttribute("customer_number");
+		String customer_name = (String) session.getAttribute("customer_name");
+		String last_date_range = (String) session.getAttribute("last_date_range");
+		String order_date = (String) session.getAttribute("orderDate");
+		String status = (String) session.getAttribute("status");
+		model.addAttribute("userId", getUserName());
+		model.addAttribute("customer_number", customer_number);
+		model.addAttribute("customer_name", customer_name);
+		model.addAttribute("last_date_range", last_date_range);
+		model.addAttribute("order_date", order_date);
+		model.addAttribute("status", status);
+		return "BalanceSearch";
+	}
+
+
 	public String getUserName() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}

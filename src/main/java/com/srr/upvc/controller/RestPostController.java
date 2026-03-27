@@ -143,7 +143,7 @@ public class RestPostController {
 		InvoiceInfo record =  invoiceDetailService.convertDtoToEntity(item);
 		CustomerOrder order = customerOrderDetailService.findCustomerOrderbyId(item.getOrderId());
 		String invNum = item.getInvoiceNum();
-			if(record.getInvoiceNum() == null) {
+			if(record.getInvoiceNum() == null || record.getInvoiceNum().isEmpty()) {
 				   int year = Calendar.getInstance().get(Calendar.YEAR);
 
 				    int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
