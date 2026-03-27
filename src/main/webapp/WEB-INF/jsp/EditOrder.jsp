@@ -34,12 +34,15 @@
 		<jsp:directive.include file="Header.jsp" />
 		<div style="text-align: center; font-size: 30px;">EDIT-ORDER</div>
 		<div class="container">
+			
 			<div class="row">
 				<div class="col-md-6">
 					&nbsp;
 				</div>
-				<div class="col-md-6" id="button_section">
-
+				<div class="col-md-6" style="float: right;" id="button_section">
+					<a class="btn btn-info" href="/orderdetails?orderId=${orderId}" target="_blank">
+						<i class="fa fa-list"></i> Edit Order Details
+					</a> &nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="button" id="generateInvoice" style="float: right;margin-right: 20px;"
 						class="btn btn-primary" value="Print Invoice"></input>
 					<input type="button" id="modifyInvoice" style="float: right;margin-right: 20px;"
