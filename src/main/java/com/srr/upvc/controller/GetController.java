@@ -22,6 +22,13 @@ import com.srr.upvc.repository.CompanyProfileRepo;
 @RequestMapping(path = "")
 public class GetController {
 
+	@RequestMapping(value = "/orderdetails", method = RequestMethod.GET)
+	public String orderDetailsPage(@Param("orderId") Long orderId, ModelMap model) {
+		model.addAttribute("orderId", orderId);
+		model.addAttribute("userId", getUserName());
+		return "orderDetails";
+	}
+
 	@Autowired
 	public CompanyProfileRepo companyProfileRepo;
 

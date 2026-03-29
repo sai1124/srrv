@@ -27,6 +27,7 @@ import com.srr.upvc.dto.CustomerDto;
 import com.srr.upvc.dto.CustomerOrderDto;
 import com.srr.upvc.dto.InvoiceInfoDto;
 import com.srr.upvc.dto.ItemDto;
+import com.srr.upvc.dto.OrderDetailsDto;
 import com.srr.upvc.dto.PaymentDto;
 import com.srr.upvc.entity.Customer;
 import com.srr.upvc.entity.CustomerOrder;
@@ -43,6 +44,8 @@ import com.srr.upvc.service.InvoiceDetailService;
 import com.srr.upvc.service.InvoiceItemService;
 import com.srr.upvc.service.PaymentDetailService;
 import com.srr.upvc.utils.AppUtils; 
+import com.srr.upvc.entity.OrderDetails;
+import com.srr.upvc.service.OrderDetailsService;
 @RestController
 @RequestMapping(path = "/post")
 public class RestPostController {
@@ -68,6 +71,37 @@ public class RestPostController {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private OrderDetailsService orderDetailsService;
+	// Fetch OrderDetailsDto by order_id
+	@PostMapping("/fetch/orderDetails")
+	public AppEntity<OrderDetailsDto> fetchOrderDetails(@RequestBody Map<String, Long> req) {
+		AppEntity<OrderDetailsDto> res = new AppEntity<>();
+		res.setStatus(ResponseCode.FAILURE);
+		Long orderId = req.get("orderId");
+		if (orderId != null) {
+			List<OrderDetailsDto> detailsDto = orderDetailsService.fetchOrderDetailsDtoByOrderId(orderId);
+			res.setRecords(detailsDto);
+			res.setStatus(ResponseCode.SUCCESS);
+		}
+		return res;
+	}
+
+	// Save OrderDetails (list)
+	@PostMapping("/save/orderDetails")
+	public AppEntity<OrderDetailsDto> saveOrderDetails(@RequestBody List<OrderDetailsDto> reqList) {
+		AppEntity<OrderDetailsDto> res = new AppEntity<>();
+		res.setStatus(ResponseCode.FAILURE);
+		if (reqList != null && !reqList.isEmpty()) {
+			List<OrderDetailsDto> savedList = orderDetailsService.saveOrderDetailsList(reqList);
+			if (!savedList.isEmpty()) {
+				res.setRecords(savedList);
+				res.setStatus(ResponseCode.SUCCESS);
+			}
+		}
+		return res;
+	}
 
 	  	
 	//private static DecimalFormat df2 = new DecimalFormat("#.##");

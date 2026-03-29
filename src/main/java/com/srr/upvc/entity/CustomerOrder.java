@@ -3,6 +3,11 @@ package com.srr.upvc.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import java.util.List;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -81,6 +86,9 @@ public class CustomerOrder implements Serializable {
 	private Double amountReceived;
 	
 	private String invoiceNum;
+
+	@OneToMany(mappedBy = "customerOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<OrderDetails> orderDetails;
 		
 	@Column(name = "gst_number")
 	private String gstNumber;
@@ -260,6 +268,14 @@ public class CustomerOrder implements Serializable {
 	public void setInvoiceNum(String invoiceNum) {
 		this.invoiceNum = invoiceNum;
 	}
+
+    public List<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 
 }
 
